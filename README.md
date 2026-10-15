@@ -8,7 +8,7 @@ This agent automates internship hunting for students by scraping live, fragmente
 
 ## 🚀 Two Ways to Run the Project
 
-### 1. Web UI Mode (Recommended)
+### 1. Web UI Mode 
 I have built a custom Flask frontend so anyone can use this agent easily.
 - **Run:** `python app.py`
 - Open `http://127.0.0.1:5000` in your browser.
