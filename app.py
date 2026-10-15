@@ -4,7 +4,6 @@ import os
 from dotenv import load_dotenv
 from tinyfish import TinyFish, RunStatus
 
-# Load API key securely
 load_dotenv()
 client = TinyFish()
 
