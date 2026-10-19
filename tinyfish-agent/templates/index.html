@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TinyFish AI Job Radar</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #1e1e2f; color: #fff; padding: 40px; }
+        .container { max-width: 600px; margin: auto; background: #2a2a40; padding: 30px; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.3); }
+        h2 { text-align: center; color: #4facfe; margin-bottom: 20px; }
+        label { font-size: 14px; color: #a5a5b5; margin-bottom: 5px; display: block; }
+        input { width: 100%; padding: 12px; margin-bottom: 20px; box-sizing: border-box; border-radius: 6px; border: 1px solid #4facfe; background: #1e1e2f; color: #fff; }
+        button { width: 100%; padding: 14px; background-color: #4facfe; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        button:hover { background-color: #00f2fe; color: #000; }
+        pre { background: #1e1e2f; padding: 15px; border-radius: 6px; overflow-x: auto; color: #00f2fe; border: 1px solid #4facfe; }
+        #loader { text-align: center; color: #ffeb3b; display: none; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🐟 TinyFish Live Job Search</h2>
+        
+        <label>Job Role</label>
+        <input type="text" id="role" value="ui/ux" placeholder="e.g., ui/ux, Software">
+        
+        <label>Location</label>
+        <input type="text" id="location" value="Any" placeholder="e.g., Any, New York">
+        
+        <button onclick="performSearch()">Search Jobs Live</button>
+        
+        <h3 style="margin-top: 30px;">Extraction Results:</h3>
+        <p id="loader">Scanning live portals... Please wait (API deducting wallet)...</p>
+        <pre id="results">Waiting for search trigger...</pre>
+    </div>
+
+    <script>
+        async function performSearch() {
+            const role = document.getElementById('role').value;
+            const location = document.getElementById('location').value;
+            const resultsBox = document.getElementById('results');
+            const loader = document.getElementById('loader');
+            
+            resultsBox.innerText = "";
+            loader.style.display = "block";
+
+            try {
+               
+                const response = await fetch('/api/search', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ role: role, location: location })
+                });
+                
+                const data = await response.json();
+                loader.style.display = "none";
+                resultsBox.innerText = JSON.stringify(data, null, 2);
+                alert("API Hit Complete! Wallet se credits kat gaye hain.");
+                
+            } catch (error) {
+                loader.style.display = "none";
+                resultsBox.innerText = "Error extracting data: " + error;
+            }
+        }
+    </script>
+</body>
+</html>
